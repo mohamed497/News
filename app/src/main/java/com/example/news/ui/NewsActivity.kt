@@ -23,15 +23,12 @@ class NewsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
-        val dao: NewsDatabaseDao = NewsDatabase.getInstance(application).newsDatabaseDao
-        viewModel =
-            ViewModelProvider(this, NewsViewModelFactory(NewsRepo(NewsApi.retrofitService, dao)))
-                .get(NewsViewModel::class.java)
 
 
+        initViewModel()
         initRecyclerView()
 //
-        viewModel.getNews()
+//        viewModel.getNews()
 //        viewModel.news.observe(this, Observer { news ->
 //            adapter.setMovieList(news)
 //
@@ -65,5 +62,12 @@ class NewsActivity : AppCompatActivity() {
         }
 
     }
+    private fun initViewModel(){
+        val dao: NewsDatabaseDao = NewsDatabase.getInstance(application).newsDatabaseDao
+        viewModel =
+            ViewModelProvider(this, NewsViewModelFactory(NewsRepo(NewsApi.retrofitService, dao)))
+                .get(NewsViewModel::class.java)
+    }
+
 
 }
