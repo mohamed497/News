@@ -50,7 +50,6 @@ class NewsActivity : AppCompatActivity() {
         }
 
 
-
     }
 
     private fun initRecyclerView() {
@@ -62,7 +61,8 @@ class NewsActivity : AppCompatActivity() {
         }
 
     }
-    private fun initViewModel(){
+
+    private fun initViewModel() {
         val dao: NewsDatabaseDao = NewsDatabase.getInstance(application).newsDatabaseDao
         viewModel =
             ViewModelProvider(this, NewsViewModelFactory(NewsRepo(NewsApi.retrofitService, dao)))
