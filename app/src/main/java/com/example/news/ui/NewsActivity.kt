@@ -14,7 +14,6 @@ import com.example.news.resource.Resource
 import kotlinx.android.synthetic.main.activity_news.*
 
 
-
 class NewsActivity : AppCompatActivity() {
 
     private lateinit var viewModel: NewsViewModel
@@ -35,8 +34,9 @@ class NewsActivity : AppCompatActivity() {
 
                 }
                 Resource.Companion.State.SUCCESS -> {
-                    Log.d("zxc_size", newsResource.size.toString())
+                    Log.d(NewsActivity::class.java.simpleName, newsResource.size.toString())
                     initAdapter(newsResource.value!!)
+                    initAdapter(newsResource.allData!!)
                 }
                 Resource.Companion.State.ERROR -> {
 
@@ -45,7 +45,8 @@ class NewsActivity : AppCompatActivity() {
         })
 
     }
-    private fun viewModelData(){
+
+    private fun viewModelData() {
         viewModel.getNews()
         viewModel.getNewsFromDB()
     }
@@ -53,6 +54,7 @@ class NewsActivity : AppCompatActivity() {
     private fun initAdapter(news: List<ArticlesModel>) {
         newsAdapter = NewsAdapter(news)
         newsRecyclerView.adapter = newsAdapter
+        newsAdapter.notifyDataSetChanged()
     }
 
     private fun initViewModel() {

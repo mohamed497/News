@@ -15,7 +15,4 @@ interface NewsDatabaseDao {
     @Query("SELECT * FROM news_table")
     fun getAllNewsFromDB(): Observable<List<ArticlesModel>>
 
-
-
-
 }

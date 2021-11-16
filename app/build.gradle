@@ -32,7 +32,6 @@ android {
         jvmTarget = '1.8'
     }
 
-
 }
 
 dependencies {
@@ -71,7 +70,6 @@ dependencies {
     implementation "androidx.cardview:cardview:$version_cardview"
     implementation "com.github.bumptech.glide:glide:$version_glide"
     annotationProcessor "com.github.bumptech.glide:compiler:$version_glide"
-
 
 
 }

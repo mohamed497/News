@@ -11,10 +11,10 @@ import com.bumptech.glide.Glide
 import com.example.news.R
 import com.example.news.pojo.ArticlesModel
 
-class NewsAdapter(private val newsList: List<ArticlesModel>) : ListAdapter<ArticlesModel, NewsViewHolder>(
-    UserDiffCallBack()
-){
-
+class NewsAdapter(private val newsList: List<ArticlesModel>) :
+    ListAdapter<ArticlesModel, NewsViewHolder>(
+        UserDiffCallBack()
+    ) {
 
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
@@ -31,10 +31,6 @@ class NewsAdapter(private val newsList: List<ArticlesModel>) : ListAdapter<Artic
     }
 }
 
-
-//class NewsViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-//    LayoutInflater.from(parent.context).inflate(R.layout.list_news_item, parent, false)
-//) {
 class NewsViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.list_news_item, parent, false)
 ) {
@@ -54,6 +50,7 @@ class NewsViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
             .into(newsImg)
     }
 }
+
 class UserDiffCallBack : DiffUtil.ItemCallback<ArticlesModel>() {
 
     override fun areItemsTheSame(oldItem: ArticlesModel, newItem: ArticlesModel): Boolean {

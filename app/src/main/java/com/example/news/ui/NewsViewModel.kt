@@ -17,6 +17,15 @@ class NewsViewModel(private val newsRepo: NewsRepo) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
+/**   private val mArticles = ArrayList<ArticlesModel>(7)
+//    val mArticlesPostLiveData = MutableLiveData<List<ArticlesModel>>()
+//
+//    private fun addArticle(articlesModel: List<ArticlesModel>) {
+//        mArticles.addAll(articlesModel)
+//        mArticlesPostLiveData.value = mArticles
+   } **/
+
+
     private val _newsDB = MutableLiveData<Resource<List<ArticlesModel>>>()
     val newsDB: LiveData<Resource<List<ArticlesModel>>>
         get() = _newsDB
@@ -53,7 +62,8 @@ class NewsViewModel(private val newsRepo: NewsRepo) : ViewModel() {
         newsRepo.getNewsFromDB().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ news ->
-                _newsDB.value = Resource.success(news, news.size)
+                //5 items only
+                _newsDB.value = Resource.success(news.take(5), news.size,news)
             },
                 { throwable ->
                     Log.d(GlobalConstants.NEWS_VIEW_MODEL_ERROR, throwable.toString())
