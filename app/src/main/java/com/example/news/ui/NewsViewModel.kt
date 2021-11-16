@@ -17,7 +17,6 @@ class NewsViewModel(private val newsRepo: NewsRepo) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-
     private val _newsDB = MutableLiveData<Resource<List<ArticlesModel>>>()
     val newsDB: LiveData<Resource<List<ArticlesModel>>>
         get() = _newsDB
@@ -27,7 +26,9 @@ class NewsViewModel(private val newsRepo: NewsRepo) : ViewModel() {
             { newsModel ->
                 insertNewsIntoDB(newsModel)
             },
-            { Log.d(GlobalConstants.NEWS_VIEW_MODEL_ERROR, it.toString()) },
+            { throwable ->
+                Log.d(GlobalConstants.NEWS_VIEW_MODEL_ERROR, throwable.toString())
+            },
             { Log.d(GlobalConstants.NEWS_VIEW_MODEL_SUCCESS, "Complete") }
         ).let { disposable ->
             compositeDisposable.add(disposable)
@@ -52,14 +53,14 @@ class NewsViewModel(private val newsRepo: NewsRepo) : ViewModel() {
         newsRepo.getNewsFromDB().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ news ->
-                _newsDB.value = Resource.success(news)
+                _newsDB.value = Resource.success(news, news.size)
             },
                 { throwable ->
-                    Log.d("Constants.NEWS_ERROR", throwable.toString())
+                    Log.d(GlobalConstants.NEWS_VIEW_MODEL_ERROR, throwable.toString())
                     _newsDB.value = Resource.error(throwable)
                 },
                 {
-                    Log.d("NEWS_VIEW_MODEL_SUCCESS", "Complete")
+                    Log.d(GlobalConstants.NEWS_VIEW_MODEL_SUCCESS, "Complete")
                 })
     }
 
@@ -69,8 +70,8 @@ class NewsViewModel(private val newsRepo: NewsRepo) : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Log.d(GlobalConstants.NEWS_VIEW_MODEL_SUCCESS, "Complete")
-            }, {
-                Log.d(GlobalConstants.NEWS_VIEW_MODEL_ERROR, it.toString())
+            }, { throwable ->
+                Log.d(GlobalConstants.NEWS_VIEW_MODEL_ERROR, throwable.toString())
 
             }).let { disposable ->
                 compositeDisposable.add(disposable)

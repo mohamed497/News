@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news.R
 import com.example.news.database.NewsDatabase
 import com.example.news.database.NewsDatabaseDao
@@ -29,16 +28,14 @@ class NewsActivity : AppCompatActivity() {
         initDatabaseDao()
         initViewModel()
 
-        viewModel.getNews()
-
-
-        viewModel.getNewsFromDB()
+        viewModelData()
         viewModel.newsDB.observe(this, { newsResource ->
             when (newsResource.state) {
                 Resource.Companion.State.LOADING -> {
 
                 }
                 Resource.Companion.State.SUCCESS -> {
+                    Log.d("zxc_size", newsResource.size.toString())
                     initAdapter(newsResource.value!!)
                 }
                 Resource.Companion.State.ERROR -> {
@@ -47,7 +44,10 @@ class NewsActivity : AppCompatActivity() {
             }
         })
 
-
+    }
+    private fun viewModelData(){
+        viewModel.getNews()
+        viewModel.getNewsFromDB()
     }
 
     private fun initAdapter(news: List<ArticlesModel>) {

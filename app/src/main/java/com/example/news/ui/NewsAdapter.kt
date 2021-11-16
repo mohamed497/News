@@ -5,12 +5,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.news.R
 import com.example.news.pojo.ArticlesModel
 
-class NewsAdapter(private val newsList: List<ArticlesModel>) : RecyclerView.Adapter<NewsViewHolder>(){
+class NewsAdapter(private val newsList: List<ArticlesModel>) : ListAdapter<ArticlesModel, NewsViewHolder>(
+    UserDiffCallBack()
+){
 
 
 
@@ -29,6 +32,9 @@ class NewsAdapter(private val newsList: List<ArticlesModel>) : RecyclerView.Adap
 }
 
 
+//class NewsViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+//    LayoutInflater.from(parent.context).inflate(R.layout.list_news_item, parent, false)
+//) {
 class NewsViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.list_news_item, parent, false)
 ) {
@@ -47,4 +53,15 @@ class NewsViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
             .circleCrop()
             .into(newsImg)
     }
+}
+class UserDiffCallBack : DiffUtil.ItemCallback<ArticlesModel>() {
+
+    override fun areItemsTheSame(oldItem: ArticlesModel, newItem: ArticlesModel): Boolean {
+        return oldItem.publishedAt == newItem.publishedAt
+    }
+
+    override fun areContentsTheSame(oldItem: ArticlesModel, newItem: ArticlesModel): Boolean {
+        return oldItem == newItem
+    }
+
 }
