@@ -18,9 +18,7 @@ class NewsRepo(
         return newsDatabaseDao.getAllNewsFromDB()
     }
 
-    fun loadAllNewsByPage(limit: Int, offset: Int): Observable<List<ArticlesModel>> {
-        return newsDatabaseDao.loadAllNewsByPage(limit, offset)
-    }
+
 
     fun insert(articlesModel: List<ArticlesModel>): Completable {
         return newsDatabaseDao.insertNewsIntoDB(articlesModel)

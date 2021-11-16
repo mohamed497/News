@@ -16,10 +16,6 @@ interface NewsDatabaseDao {
     @Query("SELECT * FROM news_table")
     fun getAllNewsFromDB(): Observable<List<ArticlesModel>>
 
-
-    @Query("SELECT * FROM news_table LIMIT :limit OFFSET :offset")
-    fun loadAllNewsByPage(limit: Int, offset: Int): Observable<List<ArticlesModel>>
-
     @Query("SELECT * FROM news_table ORDER BY newsId DESC")
     fun getAllPaged(): PagingSource<Int, ArticlesModel>
 

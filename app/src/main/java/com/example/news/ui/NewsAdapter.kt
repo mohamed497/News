@@ -4,44 +4,32 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.news.R
 import com.example.news.pojo.ArticlesModel
 
-class NewsAdapter : PagingDataAdapter<ArticlesModel, MyViewHolder>(DIFF_CALLBACK) {
+class NewsAdapter(private val newsList: List<ArticlesModel>) : RecyclerView.Adapter<NewsViewHolder>(){
 
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ArticlesModel>() {
-            override fun areItemsTheSame(oldItem: ArticlesModel, newItem: ArticlesModel): Boolean {
-                return oldItem.newsId == newItem.newsId
 
-            }
 
-            override fun areContentsTheSame(
-                oldItem: ArticlesModel,
-                newItem: ArticlesModel
-            ): Boolean {
-                return oldItem == newItem
-            }
-
-        }
-    }
-
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val articlesModel: ArticlesModel? = getItem(position)
+    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
+        val articlesModel: ArticlesModel? = newsList[position]
         holder.bind(articlesModel)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
+        return NewsViewHolder(parent)
+    }
+
+    override fun getItemCount(): Int {
+        return newsList.size
     }
 }
 
 
-class MyViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+class NewsViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.list_news_item, parent, false)
 ) {
     private val newsTitle = itemView.findViewById<TextView>(R.id.newsTitle)
