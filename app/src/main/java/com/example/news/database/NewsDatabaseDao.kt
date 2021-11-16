@@ -1,6 +1,5 @@
 package com.example.news.database
 
-import androidx.paging.PagingSource
 import androidx.room.*
 import com.example.news.pojo.ArticlesModel
 import io.reactivex.rxjava3.core.Completable
@@ -16,8 +15,7 @@ interface NewsDatabaseDao {
     @Query("SELECT * FROM news_table")
     fun getAllNewsFromDB(): Observable<List<ArticlesModel>>
 
-    @Query("SELECT * FROM news_table ORDER BY newsId DESC")
-    fun getAllPaged(): PagingSource<Int, ArticlesModel>
+
 
 
 }

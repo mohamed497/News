@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news.R
 import com.example.news.database.NewsDatabase
@@ -14,8 +13,7 @@ import com.example.news.pojo.ArticlesModel
 import com.example.news.repository.NewsRepo
 import com.example.news.resource.Resource
 import kotlinx.android.synthetic.main.activity_news.*
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+
 
 
 class NewsActivity : AppCompatActivity() {

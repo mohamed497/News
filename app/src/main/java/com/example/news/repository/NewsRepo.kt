@@ -1,6 +1,5 @@
 package com.example.news.repository
 
-import androidx.paging.PagingSource
 import com.example.news.database.NewsDatabaseDao
 import com.example.news.netowrk.NewsApiService
 import com.example.news.pojo.ArticlesModel
@@ -26,7 +25,5 @@ class NewsRepo(
 
 
 
-    fun getAllPaged(): PagingSource<Int, ArticlesModel> {
-        return newsDatabaseDao.getAllPaged()
-    }
+
 }
