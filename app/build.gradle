@@ -52,10 +52,6 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava3:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$version_retrofit"
 
-    // Moshi
-    implementation "com.squareup.moshi:moshi:$version_moshi"
-    implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
-
     //Rxjava
     implementation "io.reactivex.rxjava3:rxandroid:$version_rxjava"
     implementation "io.reactivex.rxjava3:rxjava:$version_rxjava"

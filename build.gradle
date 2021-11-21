@@ -3,7 +3,6 @@ buildscript {
 
     ext {
         version_retrofit = "2.9.0"
-        version_moshi = "1.12.0"
         version_core = "1.7.0"
         version_rxjava = "3.0.0"
         version_room = "2.3.0"

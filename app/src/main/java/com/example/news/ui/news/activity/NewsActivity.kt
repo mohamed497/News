@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.news.R
 import com.example.news.base.GlobalConstants
 import com.example.news.base.Resource
+import com.example.news.pojo.Article
 import com.example.news.pojo.News
 import com.example.news.viewmodel.NewsViewModel
 import com.example.news.ui.news.adapter.NewsAdapter
@@ -17,28 +18,34 @@ import kotlinx.android.synthetic.main.activity_news.*
 class NewsActivity : AppCompatActivity() {
     private lateinit var viewModel: NewsViewModel
     private lateinit var newsAdapter: NewsAdapter
-    private var news = News(null, null, null)
+    private var articleSaveInstance: List<Article>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
-        initViewModel()
-        getNewsData()
-        if (savedInstanceState != null) {
-            initAdapter()
-            news = savedInstanceState.getParcelable(GlobalConstants.SAVE_INSTANCE_NEWS)!!
-            newsAdapter.setNews(news.articles!!)
-            Log.d(NewsActivity::class.java.simpleName, " save instance not equal null")
 
-        }else{
-            Log.d(NewsActivity::class.java.simpleName, " save instance = null")
-            observeOnNews()
-        }
+        initViewModel()
+        initAdapter()
+//        observeOnNews()
+        viewModel.fetchNews()
+        checkInstanceState(savedInstanceState)
 
     }
 
-    private fun getNewsData() {
-        viewModel.fetchNews()
-        viewModel.getNewsFromDB()
+    fun checkInstanceState(savedInstanceState: Bundle?) {
+        if (savedInstanceState != null) {
+            getSavedInstanceState(savedInstanceState)
+
+        } else {
+            Log.d(NewsActivity::class.java.simpleName, " save instance = null")
+            observeOnNews()
+        }
+    }
+
+    fun getSavedInstanceState(savedInstanceState: Bundle?) {
+        articleSaveInstance =
+            savedInstanceState?.getParcelable(GlobalConstants.SAVE_INSTANCE_NEWS)!!
+        newsAdapter.setNews(articleSaveInstance ?: emptyList())
+        Log.d(NewsActivity::class.java.simpleName, " save instance not equal null")
     }
 
     private fun initAdapter() {
@@ -47,7 +54,6 @@ class NewsActivity : AppCompatActivity() {
     }
 
     private fun observeOnNews() {
-        initAdapter()
         viewModel.observeOnNews(this, { newsResource ->
             when (newsResource.state) {
                 Resource.Companion.State.LOADING -> {
@@ -59,13 +65,13 @@ class NewsActivity : AppCompatActivity() {
                     progress.visibility = View.GONE
                     errorText.visibility = View.GONE
 
-                    Log.d(NewsActivity::class.java.simpleName, newsResource.size.toString())
-                    newsAdapter.setNews(newsResource.allData!!)
-
+                    articleSaveInstance = newsResource.value
+                    newsAdapter.setNews(newsResource.value ?: emptyList())
                 }
                 Resource.Companion.State.ERROR -> {
                     progress.visibility = View.GONE
                     errorText.visibility = View.VISIBLE
+                    Log.d(NewsActivity::class.java.simpleName, newsResource.t.toString())
                 }
             }
         })
@@ -79,11 +85,15 @@ class NewsActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable(GlobalConstants.SAVE_INSTANCE_NEWS, viewModel.getNews())
+        outState.putParcelableArrayList(
+            GlobalConstants.SAVE_INSTANCE_NEWS,
+            ArrayList(viewModel.getArticle())
+        )
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        news = savedInstanceState.getParcelable(GlobalConstants.SAVE_INSTANCE_NEWS)!!
+        articleSaveInstance = savedInstanceState.getParcelable(GlobalConstants.SAVE_INSTANCE_NEWS)
     }
+
 }

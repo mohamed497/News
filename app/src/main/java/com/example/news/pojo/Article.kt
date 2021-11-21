@@ -3,9 +3,10 @@ package com.example.news.pojo
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.news.base.GlobalConstants
 import kotlinx.android.parcel.Parcelize
 
-@Entity(tableName = "news_table")
+@Entity(tableName = GlobalConstants.NEWS_TABLE_NAME)
 @Parcelize
 data class Article(
     val author: String? = null,

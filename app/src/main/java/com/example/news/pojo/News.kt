@@ -1,6 +1,5 @@
 package com.example.news.pojo
 
-import android.os.Parcel
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
@@ -8,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class News(
     val status: String?,
     val totalResults: String?,
-    val articles: List<Article>?
+    val articles: List<Article>
 ) : Parcelable
 

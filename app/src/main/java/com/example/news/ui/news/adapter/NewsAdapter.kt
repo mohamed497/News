@@ -20,6 +20,7 @@ class NewsAdapter :
 
     fun setNews(news: List<Article>) {
         this.news.addAll(news)
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {

@@ -6,5 +6,6 @@ object GlobalConstants {
     const val NEWS_VIEW_MODEL_ERROR = "NewsViewModel_Error"
     const val NEWS_VIEW_MODEL_SUCCESS = "NewsViewModel_Success"
     const val SAVE_INSTANCE_NEWS = "News"
+    const val NEWS_TABLE_NAME = "news_table"
 
 }
