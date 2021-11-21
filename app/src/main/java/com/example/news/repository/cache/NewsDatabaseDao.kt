@@ -1,7 +1,7 @@
-package com.example.news.database
+package com.example.news.repository.cache
 
 import androidx.room.*
-import com.example.news.pojo.ArticlesModel
+import com.example.news.pojo.Article
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 
@@ -10,9 +10,9 @@ import io.reactivex.rxjava3.core.Observable
 interface NewsDatabaseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertNewsIntoDB(news: List<ArticlesModel>): Completable
+    fun insertNewsIntoDB(news: List<Article>): Completable
 
     @Query("SELECT * FROM news_table")
-    fun getAllNewsFromDB(): Observable<List<ArticlesModel>>
+    fun getAllNewsFromDB(): Observable<List<Article>>
 
 }

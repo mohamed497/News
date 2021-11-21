@@ -1,7 +1,7 @@
-package com.example.news.netowrk
+package com.example.news.repository.remote
 
 import com.example.news.base.GlobalConstants
-import com.example.news.pojo.NewsResponse
+import com.example.news.pojo.News
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import io.reactivex.rxjava3.core.Observable
@@ -27,7 +27,7 @@ interface NewsApiService {
 
 
     @GET("top-headlines?country=us&apiKey=${GlobalConstants.API_KEY}")
-    fun getNews(): Observable<NewsResponse>
+    fun getNews(): Observable<News>
 
 }
 

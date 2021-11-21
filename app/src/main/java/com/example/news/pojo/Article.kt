@@ -7,9 +7,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "news_table")
 @Parcelize
-data class ArticlesModel(
-//    @PrimaryKey(autoGenerate = true)
-//    val newsId: Int? = null,
+data class Article(
     val author: String? = null,
     val title: String? = null,
     val description: String? = null,

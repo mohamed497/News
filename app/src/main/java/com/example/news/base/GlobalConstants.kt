@@ -5,4 +5,6 @@ object GlobalConstants {
     const val BASE_URL = "https://newsapi.org/v2/"
     const val NEWS_VIEW_MODEL_ERROR = "NewsViewModel_Error"
     const val NEWS_VIEW_MODEL_SUCCESS = "NewsViewModel_Success"
+    const val SAVE_INSTANCE_NEWS = "News"
+
 }

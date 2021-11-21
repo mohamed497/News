@@ -1,6 +1,5 @@
-package com.example.news.resource
+package com.example.news.base
 
-import com.example.news.pojo.ArticlesModel
 
 class Resource<T> (
     val value: T? = null,
@@ -15,19 +14,20 @@ class Resource<T> (
             ERROR,
             SUCCESS
         }
-        fun <T> loading(): Resource<T>{
+        fun <T> loading(): Resource<T> {
             return Resource(state = State.LOADING)
         }
-        fun <T> success(value: T, size: Int, allData: T): Resource<T>{
-            for (i in 0..size step 5){
+        fun <T> success(value: T, size: Int, allData: T): Resource<T> {
+            for (i in 4..size step 5){
                 // size // alldata
+                    // check end of screen size then reload new
                     allData as List<*>
                     allData.take(i)
                 //load 5 items
             }
             return Resource(state = State.SUCCESS, value = value, size = size, allData = allData)
         }
-        fun <T> error(t: Throwable): Resource<T>{
+        fun <T> error(t: Throwable): Resource<T> {
             return Resource(state = State.ERROR, t= t)
         }
     }
