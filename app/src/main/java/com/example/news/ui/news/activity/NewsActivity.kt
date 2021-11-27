@@ -26,12 +26,12 @@ class NewsActivity : AppCompatActivity() {
         initViewModel()
         initAdapter()
 //        observeOnNews()
-        viewModel.fetchNews()
         checkInstanceState(savedInstanceState)
+        viewModel.fetchNews()
 
     }
 
-    fun checkInstanceState(savedInstanceState: Bundle?) {
+    private fun checkInstanceState(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             getSavedInstanceState(savedInstanceState)
 
@@ -41,7 +41,7 @@ class NewsActivity : AppCompatActivity() {
         }
     }
 
-    fun getSavedInstanceState(savedInstanceState: Bundle?) {
+    private fun getSavedInstanceState(savedInstanceState: Bundle?) {
         articleSaveInstance =
             savedInstanceState?.getParcelable(GlobalConstants.SAVE_INSTANCE_NEWS)!!
         newsAdapter.setNews(articleSaveInstance ?: emptyList())

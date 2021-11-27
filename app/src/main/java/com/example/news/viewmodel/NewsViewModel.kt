@@ -50,7 +50,7 @@ class NewsViewModel : ViewModel() {
                 })
     }
 
-    fun getArticle(): List<Article> = newsList?.value?.value ?: emptyList()
+    fun getArticle(): List<Article> = newsList.value?.value ?: emptyList()
 
     override fun onCleared() {
         compositeDisposable.clear()

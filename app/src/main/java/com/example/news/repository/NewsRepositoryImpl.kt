@@ -13,19 +13,27 @@ class NewsRepositoryImpl : NewsRepository {
 
     private val cacheRepo: NewsRepository = NewsCacheRepository()
     private val remoteRepo: NewsRepository = NewsRemoteRepository()
-    override fun getAllNews(): Observable<News> {
-        var newsList: News? = null
-        return remoteRepo.getAllNews()
-            .flatMap {
-                news ->
-                newsList = news
-                Log.d(NewsRepositoryImpl::class.java.simpleName,news.articles.size.toString())
-                return@flatMap saveNews(news.articles)
-                    .andThen(ObservableSource { observer ->
-                        observer.onNext(newsList)
-                    })
-            }
 
+    //    override fun getAllNews(): Observable<News> {
+//        var newsList: News? = null
+//        return remoteRepo.getAllNews()
+//            .flatMap {
+//                news ->
+//                newsList = news
+//                Log.d(NewsRepositoryImpl::class.java.simpleName,news.articles.size.toString())
+//                return@flatMap saveNews(news.articles)
+//                    .andThen(ObservableSource { observer ->
+//                        observer.onNext(newsList)
+//                    })
+//            }
+//    }
+    override fun getAllNews(): Observable<News> {
+        return remoteRepo.getAllNews()
+            .flatMap { news ->
+                saveNews(news.articles)
+                Log.d(NewsRepositoryImpl::class.java.simpleName, news.articles.size.toString())
+                return@flatMap Observable.just(news)
+            }
     }
 
 
