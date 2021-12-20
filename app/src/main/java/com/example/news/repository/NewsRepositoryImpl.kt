@@ -9,24 +9,8 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableSource
 
-class NewsRepositoryImpl : NewsRepository {
+class NewsRepositoryImpl(private val cacheRepo:NewsCacheRepository,private val remoteRepo:NewsRemoteRepository) : NewsRepository {
 
-    private val cacheRepo: NewsRepository = NewsCacheRepository()
-    private val remoteRepo: NewsRepository = NewsRemoteRepository()
-
-    //    override fun getAllNews(): Observable<News> {
-//        var newsList: News? = null
-//        return remoteRepo.getAllNews()
-//            .flatMap {
-//                news ->
-//                newsList = news
-//                Log.d(NewsRepositoryImpl::class.java.simpleName,news.articles.size.toString())
-//                return@flatMap saveNews(news.articles)
-//                    .andThen(ObservableSource { observer ->
-//                        observer.onNext(newsList)
-//                    })
-//            }
-//    }
     override fun getAllNews(): Observable<News> {
         return remoteRepo.getAllNews()
             .flatMap { news ->

@@ -13,19 +13,18 @@ import com.example.news.pojo.News
 import com.example.news.viewmodel.NewsViewModel
 import com.example.news.ui.news.adapter.NewsAdapter
 import kotlinx.android.synthetic.main.activity_news.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class NewsActivity : AppCompatActivity() {
-    private lateinit var viewModel: NewsViewModel
+    private val viewModel: NewsViewModel by viewModel()
     private lateinit var newsAdapter: NewsAdapter
     private var articleSaveInstance: List<Article>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
 
-        initViewModel()
         initAdapter()
-//        observeOnNews()
         checkInstanceState(savedInstanceState)
         viewModel.fetchNews()
 
@@ -77,11 +76,6 @@ class NewsActivity : AppCompatActivity() {
         })
     }
 
-    private fun initViewModel() {
-        viewModel =
-            ViewModelProvider(this)
-                .get(NewsViewModel::class.java)
-    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

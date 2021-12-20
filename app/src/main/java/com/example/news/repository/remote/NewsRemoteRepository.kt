@@ -6,8 +6,7 @@ import com.example.news.repository.NewsRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 
-class NewsRemoteRepository : NewsRepository {
-    private val newsService = NewsApi.retrofitService
+class NewsRemoteRepository( private val newsService:NewsApiService) : NewsRepository {
 
     override fun getAllNews(): Observable<News> {
         return newsService.getNews()
