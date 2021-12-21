@@ -1,12 +1,13 @@
-package com.example.news.repository.remote
+package com.example.news.remote
 
 import com.example.news.pojo.Article
 import com.example.news.pojo.News
 import com.example.news.repository.NewsRepository
+import com.example.news.remote.services.NewsApiService
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 
-class NewsRemoteRepository( private val newsService:NewsApiService) : NewsRepository {
+class NewsRemoteRepository( private val newsService: NewsApiService) : NewsRepository {
 
     override fun getAllNews(): Observable<News> {
         return newsService.getNews()

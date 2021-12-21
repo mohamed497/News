@@ -1,15 +1,13 @@
 package com.example.news.di
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
 import com.example.news.base.GlobalConstants
-import com.example.news.repository.NewsRepository
 import com.example.news.repository.NewsRepositoryImpl
 import com.example.news.repository.cache.NewsCacheRepository
 import com.example.news.repository.cache.NewsDatabase
-import com.example.news.repository.remote.NewsApiService
-import com.example.news.repository.remote.NewsRemoteRepository
+import com.example.news.remote.services.NewsApiService
+import com.example.news.remote.NewsRemoteRepository
 import com.example.news.viewmodel.NewsViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
@@ -41,14 +39,4 @@ val serviceAPIModule = module {
         return retrofit.create(NewsApiService::class.java)
     }
     single { getServiceAPIInstance(retrofit = get()) }
-}
-val databaseModule = module {
-    fun getDatabaseInstance(application: Application): NewsDatabase {
-            return Room.databaseBuilder(
-                application,
-                NewsDatabase::class.java, GlobalConstants.DATABASE_NAME
-            )
-                .build()
-    }
-    single { getDatabaseInstance(androidApplication()) }
 }

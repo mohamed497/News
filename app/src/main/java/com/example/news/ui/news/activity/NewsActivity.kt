@@ -1,20 +1,21 @@
 package com.example.news.ui.news.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import com.example.news.R
 import com.example.news.base.GlobalConstants
 import com.example.news.base.Resource
 import com.example.news.pojo.Article
-import com.example.news.pojo.News
-import com.example.news.viewmodel.NewsViewModel
 import com.example.news.ui.news.adapter.NewsAdapter
+import com.example.news.utils.toGone
+import com.example.news.utils.toVisible
+import com.example.news.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.activity_news.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
+private const val SAVE_INSTANCE_NEWS = "News"
 
 class NewsActivity : AppCompatActivity() {
     private val viewModel: NewsViewModel by viewModel()
@@ -56,14 +57,12 @@ class NewsActivity : AppCompatActivity() {
         viewModel.observeOnNews(this, { newsResource ->
             when (newsResource.state) {
                 Resource.Companion.State.LOADING -> {
-                    progress.visibility = View.VISIBLE
-                    errorText.visibility = View.GONE
-
+                    progress.toVisible()
+                    errorText.toGone()
                 }
                 Resource.Companion.State.SUCCESS -> {
-                    progress.visibility = View.GONE
-                    errorText.visibility = View.GONE
-
+                    progress.toGone()
+                    errorText.toGone()
                     articleSaveInstance = newsResource.value
                     newsAdapter.setNews(newsResource.value ?: emptyList())
                 }
@@ -80,14 +79,14 @@ class NewsActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(
-            GlobalConstants.SAVE_INSTANCE_NEWS,
+            SAVE_INSTANCE_NEWS,
             ArrayList(viewModel.getArticle())
         )
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        articleSaveInstance = savedInstanceState.getParcelable(GlobalConstants.SAVE_INSTANCE_NEWS)
+        articleSaveInstance = savedInstanceState.getParcelable(SAVE_INSTANCE_NEWS)
     }
 
 }

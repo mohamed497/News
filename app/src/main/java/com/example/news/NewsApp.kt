@@ -11,6 +11,11 @@ import org.koin.core.context.startKoin
 class NewsApp:Application() {
     override fun onCreate() {
         super.onCreate()
+        setupKoin()
+
+    }
+
+    private fun setupKoin() {
         startKoin {
             androidContext(this@NewsApp)
             modules(listOf(

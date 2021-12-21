@@ -1,8 +1,9 @@
-package com.example.news.repository.cache
+package com.example.news.repository.cache.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.news.pojo.Article
+import com.example.news.repository.cache.dao.NewsDatabaseDao
 
 const val DB_VERSION = 1
 

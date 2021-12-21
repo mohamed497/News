@@ -4,10 +4,9 @@ import android.util.Log
 import com.example.news.pojo.Article
 import com.example.news.pojo.News
 import com.example.news.repository.cache.NewsCacheRepository
-import com.example.news.repository.remote.NewsRemoteRepository
+import com.example.news.remote.NewsRemoteRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.ObservableSource
 
 class NewsRepositoryImpl(private val cacheRepo:NewsCacheRepository,private val remoteRepo:NewsRemoteRepository) : NewsRepository {
 

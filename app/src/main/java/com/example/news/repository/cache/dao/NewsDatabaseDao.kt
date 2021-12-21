@@ -1,4 +1,4 @@
-package com.example.news.repository.cache
+package com.example.news.repository.cache.dao
 
 import androidx.room.*
 import com.example.news.base.GlobalConstants

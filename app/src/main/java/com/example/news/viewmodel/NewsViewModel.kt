@@ -1,12 +1,12 @@
 package com.example.news.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.news.base.GlobalConstants
-import com.example.news.pojo.Article
 import com.example.news.base.Resource
-import com.example.news.pojo.News
+import com.example.news.pojo.Article
 import com.example.news.repository.NewsRepositoryImpl
+import com.example.news.utils.debug
+import com.example.news.utils.error
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -24,11 +24,11 @@ class NewsViewModel(private val newsRepositoryImpl: NewsRepositoryImpl) : ViewMo
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ news ->
-                Log.d(NewsViewModel::class.java.simpleName, news.articles.size.toString())
+                debug(news.articles.size)
                 newsList.value = Resource.success(news.articles)
             },
                 { throwable ->
-                    Log.d(GlobalConstants.NEWS_VIEW_MODEL_ERROR, throwable.toString())
+                    error("error in getting news", throwable)
                     newsList.value = Resource.error(throwable)
                 },
                 {
