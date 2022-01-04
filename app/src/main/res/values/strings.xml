@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">News</string>
+    <string name="save_instance">save instance = null</string>
+    <string name="check_instance">save instance != null</string>
 </resources>
